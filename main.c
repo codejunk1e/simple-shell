@@ -1,17 +1,28 @@
-#include "shell.h"
+#include "holberton.h"
 
-/** 
- * main - Entry point
- *
- * Return: 0;
+/**
+ * controlC - Helper to capture the signal of CTRL+C
+ * @var: Integer variable
  */
-int main(void)
+void controlC(int var)
 {
-	while (1)
-	{
-		prompt1();
+	write(1, "\n($) ", 5);
+	(void) var;
+}
 
-		shell_exec();
-	}
-	return (0);
+/**
+ * main - Simple Shell Project
+ * @argc: Number of arguments - Integer
+ * @argv: Array of arguments - Array of strings
+ * Return: 0 on success, 1 on failure
+ */
+int main(int argc, char **argv)
+{
+	int status = 0;
+
+	(void) argc;
+	signal(SIGINT, controlC);
+	status = shellLoop(argv);
+
+	return (status);
 }
